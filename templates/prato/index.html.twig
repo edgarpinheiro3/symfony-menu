@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PratoController!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <td>Nº</td>
+            <td>Nome</td>
+            <td>Descrição</td>
+        </thead>
+        <tbody>
+            {% for prato in prato %}
+                <tr>
+                    <td>{{prato.id}}</td>
+                    <td>{{prato.name}}</td>
+                    <td>{{prato.description}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
