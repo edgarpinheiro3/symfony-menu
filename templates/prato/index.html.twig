@@ -4,12 +4,26 @@
 
 {% block body %}
 
+    {% for message in app.flashes('message') %}
+
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+
+<br/>
 <div class="container">
+    <h2>Pratos</h2>
+    <br/>
     <table class="table table-striped">
         <thead>
             <td>Nº</td>
             <td>Nome</td>
             <td>Descrição</td>
+            <td>Preço</td>
+            <td>Deletar</td>
+            <td><a href="{{ path ('prato.new') }}">Novo</a></td>
         </thead>
         <tbody>
             {% for prato in prato %}
@@ -17,6 +31,9 @@
                     <td>{{prato.id}}</td>
                     <td>{{prato.name}}</td>
                     <td>{{prato.description}}</td>
+                    <td>{{prato.price}}</td>
+                    <td><a href="{{ path ('prato.delete', {id: prato.id}) }}">X</a></td>
+                    <td></td>
                 </tr>
             {% endfor %}
         </tbody>

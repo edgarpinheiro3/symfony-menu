@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Prato;
+use App\Form\PratoType;
 use App\Repository\PratoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,19 +31,42 @@ class PratoController extends AbstractController
         ]);
     }
 
-    #[Route('/store', name: 'store')]
+    #[Route('/new', name: 'new')]
     public function store(Request $request)
     {
         $prato = new Prato();
-        $prato->setName('Lasanha');
-        $prato->setDescription('Lasanha é tanto um tipo de massa alimentícia formada por fitas largas, como também um prato, por vezes chamado lasanha ao forno.');
-        $prato->setPrice('120.5');
+        //Formulário
+        $form = $this->createForm(PratoType::class, $prato);
+        $form->handleRequest($request);
 
-        //EntityManager
+        if ( $form->isSubmitted() ) {
+
+            //EntityManager
+            $em = $this->doctrine->getManager();
+            $em->persist($prato);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('prato.index'));
+
+        }
+
+        return $this->render('prato/new.html.twig', [
+            'pratoForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/delete/{id}', name: 'delete')]
+    public function delete($id, PratoRepository $p)
+    {
+
         $em = $this->doctrine->getManager();
-        $em->persist($prato);
+        $prato = $p->find($id);
+        $em->remove($prato);
         $em->flush();
 
-        return new Response("Prato Criado");
+        //Mensagem
+        $this->addFlash('message', 'Prato excluído com Sucesso!');
+
+        return $this->redirect($this->generateUrl('prato.index'));
     }
 }
