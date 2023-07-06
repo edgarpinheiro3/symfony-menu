@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PratoController!{% endblock %}
+
+{% block body %}
+<br/>
+<div class="container">
+    <h1>{{prato.name}}</h1>
+
+    {% if prato.image is not empty %}
+    <img src="{{ asset('image/') }}{{prato.image}}"/>
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -43,6 +43,16 @@ class PratoController extends AbstractController
 
             //EntityManager
             $em = $this->doctrine->getManager();
+            $image = $request->files->get('prato')['image'];
+
+            if ($image) {
+                $name = md5(uniqid()).'.'.$image->guessClientExtension(); 
+            }
+
+            //dd($image);
+            $image->move($this->getParameter('bilder_ordner'), $name);
+
+            $prato->setImage($name);
             $em->persist($prato);
             $em->flush();
 
@@ -69,4 +79,14 @@ class PratoController extends AbstractController
 
         return $this->redirect($this->generateUrl('prato.index'));
     }
+
+    #[Route('/show/{id}', name: 'show')]
+    public function show(Prato $prato)
+    {
+        //dump($prato);
+        return $this->render('prato/show.html.twig', [
+            'prato' => $prato,
+        ]);
+    }
+
 }
