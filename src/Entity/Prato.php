@@ -13,6 +13,9 @@ class Prato
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\ManyToOne(targetEntity:"App\Entity\Categoria", inversedBy:"prato")]
+    private $fK_categoria;
+
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
@@ -74,6 +77,18 @@ class Prato
     public function setImage(?string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getFKCategoria(): ?Categoria
+    {
+        return $this->fK_categoria;
+    }
+
+    public function setFKCategoria(?Categoria $fK_categoria): static
+    {
+        $this->fK_categoria = $fK_categoria;
 
         return $this;
     }

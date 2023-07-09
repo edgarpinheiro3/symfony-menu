@@ -19,6 +19,7 @@
     <table class="table table-striped">
         <thead>
             <td>Nº</td>
+            <td>Categoria</td>
             <td>Nome</td>
             <td>Descrição</td>
             <td>Preço</td>
@@ -29,6 +30,7 @@
             {% for prato in prato %}
                 <tr>
                     <td>{{prato.id}}</td>
+                    <td>{{prato.fkcategoria}}</td>
                     <td><a href="{{ path ('prato.show', {id: prato.id}) }}">{{prato.name}}</a></td>
                     <td>{{prato.description}}</td>
                     <td>{{prato.price}}</td>
