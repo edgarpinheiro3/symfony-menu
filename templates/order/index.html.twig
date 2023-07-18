@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{% set soma = 0 %}
+
+<br/>
+<div class="container">
+    <h2>Pedido(s)</h2>
+    <br/>
+    <table class="table table-striped">
+        <thead>
+            <td>Ordem Nº</td>
+            <td>Nome</td>
+            <td>Preço</td>
+            <td>Status</td>
+            <td></td>
+        </thead>
+        <tbody>
+            {% for order in order %}
+            {% set soma = soma + order.preco %}
+            <tr>
+                <td>{{order.numero}}</td>
+                <td>{{order.nome}}</td>
+                <td>{{order.preco}}</td>
+                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                <td>{{order.status}}</td>
+                {% endif %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <td>
+                    <div class="dropdown show">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{order.status}}
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="{{ path('status', {id: order.id, status: 'aberto' }) }}">
+                        Aberto
+                        </a>
+                        <a class="dropdown-item" href="{{ path('status', {id: order.id, status: 'em preparacao' }) }}">
+                        Em Preparação
+                        </a>
+                        <a class="dropdown-item" href="{{ path('status', {id: order.id, status: 'atendido' }) }}">
+                        Atendido
+                        </a>
+                    </div>
+                    </div>
+                </td>
+                {% endif %}
+                <td>
+                    {% if order.status == "aberto" %}
+                        <a href="{{ path('deleteOrder', {id: order.id}) }}" class="btn btn-outline-danger btn-sm" role="button">
+                        Deletar
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td>{{soma}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock %}

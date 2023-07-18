@@ -16,7 +16,7 @@
 								<h2><span>{{prato1.name}}</span>!</h2>
 								<p>Descrição {{prato1.description}} - R$ {{prato1.price}}!</p>
 								<a href="{{path('menu')}}" class="site-btn">Cardápio</a>
-								<a href="#" class="site-btn sb-c2">Teste 1</a>
+								<a href="{{path('order', {id: prato1.id} )}}" class="site-btn sb-c2">Fazer Pedido</a>
 							</div>
 						</div>
 						<div class="col-lg-6">
@@ -38,7 +38,7 @@
 								<h2><span>{{prato2.name}}</span>!</h2>
 								<p>Descrição {{prato2.description}} - R$ {{prato2.price}}!</p>
 								<a href="{{path('menu')}}" class="site-btn">Cardápio</a>
-								<a href="#" class="site-btn sb-c2">Teste 2</a>
+								<a href="{{path('order', {id: prato2.id} )}}" class="site-btn sb-c2">Fazer Pedido</a>
 							</div>
 						</div>
 						<div class="col-lg-6">

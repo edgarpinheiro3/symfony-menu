@@ -1,6 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+    {% for message in app.flashes('order') %}
+
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+
 <section class="playlist-section spad">
 		<div class="container-fluid">
 			<div class="section-title">
@@ -23,7 +32,11 @@
 					<div class="playlist-item">
 						<img src="{{ asset('image/') }}{{prato.image}}" alt="{{prato.name}}"/>
 						<h5>{{prato.name}} - R$ {{prato.price}}</h5>
-                        <p>Número: {{prato.id}}</p>
+                        <p>Número: {{prato.id}}
+							<a href="{{ path('order', {id: prato.id}) }}" class="btn btn-outline-danger btn-sm" role="button">
+							Fazer Pedido
+							</a>
+						</p>
 					</div>
 				</div>
                 {% endfor %}
