@@ -1,0 +1,21 @@
+{% apply inline_css(source('@css/email.css')) %}
+
+<style>
+
+    h3{
+        color: #12b33d;
+    }
+
+</style>
+
+<h1>Exemplo de Email</h1>
+
+<h3>
+    Mesa {{mesa1}} escolheu ...
+</h3>
+
+<p>
+    {{text}}
+</p>
+
+{% endapply %}
