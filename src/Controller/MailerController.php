@@ -22,7 +22,11 @@ class MailerController extends AbstractController
             ->add('descricao', TextareaType::class,[
                 'attr' => array('rows' => '5')
             ])
-            ->add('Enviar', SubmitType::class)
+            ->add('Enviar', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-outline-danger float-right'
+                ]
+            ])
             ->getForm();
         
         $emailForm->handleRequest($request);
